@@ -36,7 +36,8 @@ install_skills() {
   for s in "$SRC"/skills/*/; do
     [ -d "$s" ] || continue
     name="$(basename "$s")"
-    rm -rf "$dir/$name"
+    [ -n "$name" ] || continue
+    rm -rf "${dir:?}/${name:?}"
     cp -R "$s" "$dir/$name"
   done
   echo "[ ok ] 技能已安装 -> $dir"

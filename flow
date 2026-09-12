@@ -10,7 +10,7 @@
 # ============================================================================
 set -uo pipefail
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 FLOW_DIR=".flow"
 EXTRA_ARGS="${FLOW_CODEX_ARGS:-}"
 AUTO_REVIEW="${FLOW_AUTO_REVIEW:-1}"

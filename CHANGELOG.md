@@ -2,14 +2,15 @@
 
 所有变更记录于此文件。格式基于 [Keep a Changelog](https://keepachangelog.com/)。
 
-## [Unreleased]
+## [1.1.0] - 2026-09-12
 
 ### Added
-- 文件锁机制（flock + PID fallback），防止并发 `flow run` 损坏共享状态
+- 文件锁机制（flock + PID fallback），防止并发 `flow run` 损坏共享状态（`FLOW_FORCE=1` 可绕过）
 - 单任务超时保护（`FLOW_TASK_TIMEOUT`，默认 600 秒）
 - `flow rollback TXXX` 命令：回滚指定任务（git revert + 重置 checkbox）
 - `flow init` 自动生成安全 `.gitignore`（忽略 `.env` / `*.key` / `*.pem` / `.flow/last-run.log`）
-- 零依赖 bash 测试体系（`tests/`），覆盖核心函数、init、run_loop、skill_body、status
+- 依赖图执行：`next_task_id()` 按 `依赖:` 字段解析任务顺序，支持中英文逗号分隔；循环依赖输出 `BLOCKED` 并终止
+- 零依赖 bash 测试体系（`tests/`），覆盖核心函数、init、run_loop、skill_body、status、dependency
 - GitHub Actions CI（shellcheck + 单元测试）
 - `install.sh` checksum 校验
 - CONTRIBUTING.md + Issue/PR 模板
@@ -19,13 +20,14 @@
 - `count_open` / `count_done` / `count_all` 先检查文件存在性，避免 grep 报错
 - `codex_run` 不再用 `exec` 替换进程，保留 trap cleanup 能力
 - `flow-execute` 技能禁止 `git add -A`，要求选择性暂存并列出禁止提交的文件类型
+- `flow-execute` 技能任务选择逻辑尊重 PLAN.md 中的依赖顺序
 - README 高级用法移除 `--full-auto` 示例，添加安全警告
+- README / DESIGN.md / SKILL.md 中引用的社区仓库星数经 GitHub API 核实，失效链接替换为有效仓库
 
 ### Fixed
 - `count_*` 函数在 grep 无匹配时输出重复 "0" 的 bug
 
 ### Known Limitations
-- 暂未实现依赖图执行（PLAN.md 的依赖字段当前被忽略）
 - 暂未实现部分审批（`flow approve` 仍为全有或全无）
 - 暂未实现 MEMORY.md 自动裁剪
 

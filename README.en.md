@@ -16,14 +16,14 @@
 
 <br/>
 
-![version](https://img.shields.io/badge/version-1.0.0-3fb950?style=flat-square)
+![version](https://img.shields.io/badge/version-1.1.0-3fb950?style=flat-square)
 ![shell](https://img.shields.io/badge/shell-bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white)
 ![deps](https://img.shields.io/badge/dependencies-zero-00ADD8?style=flat-square)
 ![codex](https://img.shields.io/badge/powered_by-OpenAI_Codex-412991?style=flat-square&logo=openai&logoColor=white)
-![skills](https://img.shields.io/badge/skills-8-FF6B35?style=flat-square)
+![skills](https://img.shields.io/badge/skills-7-FF6B35?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 ![ci](https://img.shields.io/badge/CI-passing-3fb950?style=flat-square)
-![tests](https://img.shields.io/badge/tests-5/5-3fb950?style=flat-square)
+![tests](https://img.shields.io/badge/tests-6/6-3fb950?style=flat-square)
 
 <br/>
 
@@ -284,7 +284,7 @@ flowchart TD
 | <kbd>flow powerup install</kbd> | Install 3 sub-agents |
 | <kbd>flow hub</kbd> | Discover / curate / audit skills |
 
-### 8 built-in skills
+### 7 built-in skills
 
 | Skill | Triggers on |
 |:---|:---|
