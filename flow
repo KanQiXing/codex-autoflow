@@ -159,6 +159,20 @@ cmd_powerup() {
   esac
 }
 
+# ---------- hub: 技能生态中心（发现/安装/策展/自进化） ----------
+cmd_hub() {
+  local action="${1:-browse}"
+  case "$action" in
+    browse|search|find|audit)
+      # 交互式：技能策展与安全审计（由 flow-skills-hub 技能接管）
+      codex_run flow-skills-hub "$*" tui
+      ;;
+    *)
+      codex_run flow-skills-hub "$*" tui
+      ;;
+  esac
+}
+
 finish_review() {
   if [ "$AUTO_REVIEW" = "0" ]; then
     info "自动复盘已关闭 (FLOW_AUTO_REVIEW=0)"
@@ -260,6 +274,9 @@ Codex 增强:
   powerup            全面体检+调优（AGENTS.md/config/技能/子代理/MCP）
   powerup install    安装三件套子代理 -> .codex/agents/
 
+技能生态:
+  hub                技能发现/安装/策展/安全审计（交互式）
+
 环境变量:
   FLOW_CODEX_ARGS    传给 codex 的额外参数，如 "--model gpt-5.2 --full-auto"
   FLOW_AUTO_REVIEW   0 = 完成后不自动复盘（默认 1）
@@ -279,6 +296,7 @@ case "${1:-help}" in
   verify)    shift; cmd_verify "$@" ;;
   review)    shift; cmd_review "$@" ;;
   powerup)   shift; cmd_powerup "$@" ;;
+  hub)       shift; cmd_hub "$@" ;;
   status)    shift; cmd_status "$@" ;;
   version|--version|-v) echo "codex-autoflow $VERSION" ;;
   *)         cmd_help ;;

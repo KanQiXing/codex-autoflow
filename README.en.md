@@ -2,23 +2,38 @@
 
 <img src="docs/banner.svg" width="920" alt="codex-autoflow banner"/>
 
+<br/>
+
 # ⚡ codex-autoflow
 
-**Interview → Plan → Approve → Execute → Verify → Retrospective**
+### Interview → Plan → Approve → Execute → Verify → Retrospective
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=17&pause=1300&color=3FB950&center=true&vCenter=true&random=false&width=620&height=45&lines=State+is+files.+History+is+git.;Evidence+or+it+didn%27t+happen.;One+task+per+fresh+session.;Approve+before+acting.)](https://git.io/typing-svg)
+### Distilled from 12 open-source projects · Zero dependencies · One bash file
+
+<br/>
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&pause=1300&color=3FB950&center=true&vCenter=true&random=false&width=620&height=40&lines=State+is+files.+History+is+git.;Evidence+or+it+didn%27t+happen.;One+task+per+fresh+session.;Approve+before+acting.;Skills+that+evolve+with+use.)](https://git.io/typing-svg)
+
+<br/>
 
 ![version](https://img.shields.io/badge/version-1.0.0-3fb950?style=flat-square)
 ![shell](https://img.shields.io/badge/shell-bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white)
 ![deps](https://img.shields.io/badge/dependencies-zero-00ADD8?style=flat-square)
 ![codex](https://img.shields.io/badge/powered_by-OpenAI_Codex-412991?style=flat-square&logo=openai&logoColor=white)
+![skills](https://img.shields.io/badge/skills-8-FF6B35?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
-**[中文文档](README.md)** · **[Design notes](docs/DESIGN.md)** · **[Quick start](#-quick-start)**
+<br/>
+
+**[中文文档](README.md)** · **[Design notes](docs/DESIGN.md)** · **[Quick start ↓](#-quick-start)**
 
 </div>
 
----
+<br/>
+
+<table>
+<tr>
+<td width="50%">
 
 ## 💀 The four failure modes of bare Codex
 
@@ -28,6 +43,9 @@
 | 🚶 **No plan** | Codes first, rewrites later | Interview → plan → **human approval** gate |
 | 🎭 **Fake done** | "Done!" with zero tests run | Verification gate: evidence or it didn't happen |
 | 💥 **Lost on crash** | Cannot safely resume | One commit per task; the disk is the checkpoint |
+
+</td>
+<td width="50%">
 
 ## ✨ Highlights
 
@@ -41,9 +59,20 @@
 | 🧯 **Stall breaker** | Auto-stops after 3 iterations with no new commit |
 | 🔬 **Evidence-based done** | Verification commands + output land in `VERIFICATIONS/` |
 | 🧠 **Cross-session memory** | `MEMORY.md` distills lessons and conventions |
-| 🚄 **flow powerup** | One command to audit & tune Codex itself (AGENTS.md / config / skills / sub-agents / MCP) |
+| 🚄 **flow powerup** | One command to audit & tune Codex itself |
+| 🌐 **flow hub** | Discover / install / curate / audit skills |
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
 
 ## 🚀 Quick start
+
+</div>
 
 ```bash
 git clone https://github.com/KanQiXing/codex-autoflow.git
@@ -61,37 +90,136 @@ flow run 10                             # 4️⃣ autonomous loop, one fresh ses
 > 💡 **You review exactly two documents** (PRD and PLAN); everything else runs itself.
 > `tail -f .flow/last-run.log` is your live dashboard.
 
-## 🚄 powerup: supercharge Codex itself
+<details>
+<summary>🖥️ <b>See it in action</b> (click to expand)</summary>
 
-Beyond project workflows — this tunes the Codex engine. The unified `flow-powerup` skill covers every 2026 official enhancement surface:
-
-| Surface | Coverage |
-|:---|:---|
-| 📄 AGENTS.md layering | Audit/generate the 4-level instruction chain + four governance principles |
-| 🤖 Sub-agents | Three TOML assets (read-only reviewer / workspace implementer / fast researcher) + authoring guide |
-| ⚙️ config.toml | Model-routing economics, `[agents]` guardrails (max_depth=1), skill toggles |
-| 🎯 Skills surface | description-as-ad-slot (2% context budget), curated installs, three activation paths |
-| 🔌 MCP / UI | Server wiring, `/agent` thread switching, Record & Replay |
-
-```bash
-flow powerup            # interactive full audit + tuning
-flow powerup install    # install the 3 sub-agents -> .codex/agents/
+```text
+$ flow status
+──────────────────────────────────────────────
+[flow] approval: approved · tasks: 7/9 done · 2 remaining
+[flow] last iteration output (last 3 lines):
+       [flow(T008)] verify: npm test → 12 passed
+       [flow(T008)] commit: a1b2c3d
+       remaining: 1
+[flow] recent flow commits:
+       a1b2c3d flow(T008): implement approval stamp logic
+       e4f5g6h flow(T007): add stall breaker
+       ...
+──────────────────────────────────────────────
 ```
 
-<details>
-<summary>🧪 <b>Distillation wave 2: more sources</b> (click to expand)</summary>
-
-| Source | Kept | Dropped |
-|:---|:---|:---|
-| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) (136+) | sandbox philosophy, model routing, TOML schema | all 136 agents (distilled to 3 universal roles) |
-| [Codex official docs 2026](https://developers.openai.com/codex/subagents) | skill scopes, 2% progressive-disclosure budget, `agents/openai.yaml` | — |
-| 200k★ CLAUDE.md governance | four behavioral laws (Think / Simplicity / Surgical / Goal-Driven) | rule-by-rule lists |
-| [cc-switch](https://github.com/farion1231/cc-switch) 132k★ | multi-harness config management ideas | desktop app (bash covers the core path) |
-| [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) 127k★ | curated skills-surface recommendation | bundling (not universal) |
+```text
+$ flow run 10
+[flow] iteration 1/10 · 9 tasks remaining
+[flow] iteration 2/10 · 8 tasks remaining
+    [flow(T001)] implement: user table migration + model
+    [flow(T001)] verify: npm test → all passed
+    [flow(T001)] commit: 8f3e21a
+[flow] iteration 3/10 · 7 tasks remaining
+    ...
+[ ok ] all tasks complete (9 iterations)
+[flow] triggering retrospective: flow review
+```
 
 </details>
 
+<br/>
+
+<div align="center">
+
+## 🔧 Three Engine Modules
+
+</div>
+
+<table>
+<tr>
+<th width="33%" align="center">
+
+## 🔄 Project Autonomy
+
+</th>
+<th width="33%" align="center">
+
+## 🚄 Codex Powerup
+
+</th>
+<th width="33%" align="center">
+
+## 🌐 Skills Hub
+
+</th>
+</tr>
+<tr>
+<td valign="top">
+
+**6-stage loop:**
+
+```
+interview  → PRD.md
+plan       → PLAN.md
+approve    → APPROVED
+run [N]    → code+evidence
+verify     → VERIFICATIONS/
+review     → LESSONS.md
+```
+
+**Iron laws:**
+- Everything on disk
+- Approve before acting
+- One task per session
+- Evidence or it didn't happen
+- Re-inject context
+- Stall 3× → breaker
+
+</td>
+<td valign="top">
+
+**5 enhancement surfaces:**
+
+| Surface | Coverage |
+|:---|:---|
+| 📄 AGENTS.md | 4-level chain + principles |
+| 🤖 Sub-agents | 3 TOML role assets |
+| ⚙️ config | Model routing + guardrails |
+| 🎯 Skills | description optimization |
+| 🔌 MCP | Servers + UI |
+
+```bash
+flow powerup
+flow powerup install
+```
+
+</td>
+<td valign="top">
+
+**Curated from 10+ sources:**
+
+| Source | Size |
+|:---|:---|
+| antigravity-skills | 1470+ |
+| awesome-ai-skills | 103 |
+| awesome-codex-skills | 100+ |
+| design-skills | 67 |
+| gamedev-skills | 73 |
+| SAIL security | 91 risks |
+
+```bash
+flow hub
+```
+
+Includes: self-evolution · security audit · global ledger
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
+
 ## 🧠 How it works
+
+</div>
 
 ```mermaid
 flowchart TD
@@ -113,43 +241,151 @@ flowchart TD
     end
     R -->|"all done"| V["🔬 flow verify re-check"]
     V --> RV["📖 flow review → LESSONS.md"]
+    RV -->|"lessons sink in"| MEM["🧠 MEMORY.md"]
 ```
+
+<br/>
+
+<div align="center">
 
 ## 📋 Command reference
 
-| Command | Purpose | Output |
-|:---|:---|:---|
-| <kbd>flow init</kbd> | Scaffold state dir + AGENTS contract | `.flow/` |
-| <kbd>flow interview</kbd> | Deep-interview the requirement (interactive) | `.flow/PRD.md` |
-| <kbd>flow plan</kbd> | PRD → single-session task list | `.flow/PLAN.md` |
-| <kbd>flow approve</kbd> | Human approval stamp | `.flow/APPROVED` |
-| <kbd>flow run [N]</kbd> | Autonomous loop (default 10, stall breaker ×3) | code + evidence + commits |
-| <kbd>flow once</kbd> | Single iteration (prompt debugging) | — |
-| <kbd>flow verify</kbd> | Re-verify all completed tasks | refreshes `VERIFICATIONS/` |
-| <kbd>flow review</kbd> | Retrospective distillation | `.flow/LESSONS.md` |
-| <kbd>flow status</kbd> | Progress overview | — |
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### Project workflow
+
+| Command | Purpose |
+|:---|:---|
+| <kbd>flow init</kbd> | Scaffold state dir + AGENTS contract |
+| <kbd>flow interview</kbd> | Deep-interview the requirement |
+| <kbd>flow plan</kbd> | PRD → task list |
+| <kbd>flow approve</kbd> | Human approval stamp |
+| <kbd>flow run [N]</kbd> | Autonomous loop (default 10) |
+| <kbd>flow once</kbd> | Single iteration (debugging) |
+| <kbd>flow verify</kbd> | Re-verify all completed tasks |
+| <kbd>flow review</kbd> | Retrospective distillation |
+| <kbd>flow status</kbd> | Progress overview |
+
+</td>
+<td width="50%">
+
+### Codex enhancement
+
+| Command | Purpose |
+|:---|:---|
+| <kbd>flow powerup</kbd> | Audit & tune Codex itself |
+| <kbd>flow powerup install</kbd> | Install 3 sub-agents |
+| <kbd>flow hub</kbd> | Discover / curate / audit skills |
+
+### 8 built-in skills
+
+| Skill | Triggers on |
+|:---|:---|
+| `flow-interview` | Requirement clarification |
+| `flow-plan` | Task breakdown |
+| `flow-execute` | Single-task implementation |
+| `flow-verify` | Evidence collection |
+| `flow-review` | Retrospective distillation |
+| `flow-powerup` | Codex tuning |
+| `flow-skills-hub` | Skills ecosystem |
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
+
+## 📁 `.flow/` state contract
+
+</div>
+
+| File | Role | Written by |
+|:---|:---|:---:|
+| `PRD.md` | Single source of truth for requirements | 🗣️ interview |
+| `PLAN.md` | Task checklist `- [ ]` / `- [x]` | 📝 plan generates, 🔄 execute checks |
+| `PROGRESS.md` | Append-only execution log | 🔄 execute |
+| `MEMORY.md` | Cross-session memory (lessons / conventions) | 🔄 execute · 📖 review |
+| `VERIFICATIONS/` | Verification evidence (one per task) | 🔄 execute · 🔬 verify |
+| `APPROVED` | Approval stamp | 👤 **You** |
+| `last-run.log` | Latest codex output | ⚙️ run |
+
+<br/>
+
+<div align="center">
 
 ## ⚖️ Five iron laws
 
-| # | Law | One-liner |
-|:---:|:---|:---|
-| 1 | 🗄️ **Everything on disk** | Sessions die, files don't |
-| 2 | ✅ **Approve before acting** | Unapproved plans are refused by script *and* prompt |
-| 3 | 1️⃣ **One task per session** | Clean context beats long context; one task, one commit |
-| 4 | 🔬 **Evidence or it didn't happen** | No verification output, no checkbox |
-| 5 | 🔁 **Re-inject context** | Step one of every iteration: re-read `.flow/*` |
+</div>
+
+<table>
+<tr>
+<th width="40%" align="center">Law</th>
+<th width="60%" align="center">One-liner</th>
+</tr>
+<tr>
+<td align="center">🗄️ <b>Everything on disk</b></td>
+<td>Sessions die, files don't; recover from files, not memory</td>
+</tr>
+<tr>
+<td align="center">✅ <b>Approve before acting</b></td>
+<td>Unapproved plans are refused by script *and* prompt</td>
+</tr>
+<tr>
+<td align="center">1️⃣ <b>One task per session</b></td>
+<td>Clean context beats long context; one task, one commit</td>
+</tr>
+<tr>
+<td align="center">🔬 <b>Evidence or it didn't happen</b></td>
+<td>No verification output, no checkbox</td>
+</tr>
+<tr>
+<td align="center">🔁 <b>Re-inject context</b></td>
+<td>Step one of every iteration: re-read `.flow/*`</td>
+</tr>
+</table>
+
+<br/>
 
 <details>
-<summary>🧪 <b>Distilled from six projects into one engine</b> (click to expand)</summary>
+<summary>🧪 <b>Distillation: 12 projects → one engine</b> (click to expand)</summary>
 
-| Source | Kept | Dropped | Why |
-|:---|:---|:---|:---|
-| [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) 33k★ | interview→plan→approval gate | multi-agent / HUD | orchestration gains are uncertain; complexity is not |
-| [Ralph pattern](https://ghuntley.com/ralph/) | fresh-session loop + single task + git anchors | unbounded loop | unbounded = burning money; replaced with deterministic gate + breaker |
-| [planning-with-files](https://github.com/OthmanAdi/planning-with-files) 27k★ | files-as-plan + re-injection | npm distribution | bash + markdown achieves the same, zero deps |
-| [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) | everything-on-disk + evidence-as-done | multi-harness layer | stay focused on Codex |
-| [Skills ecosystem](https://github.com/vercel-labs/skills) | SKILL.md progressive disclosure | marketplace | reuse the format, skip the package manager |
-| [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit) | staged flow + retrospective | Issue projection | single-repo loop already covers it |
+### Wave 1: Workflow engine skeleton
+
+| Source | Stars | Kept | Dropped | Why |
+|:---|:---|:---|:---|:---|
+| [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) | 33k★ | interview→plan→approval gate | multi-agent / HUD | orchestration gains are uncertain; complexity is not |
+| [Ralph pattern](https://ghuntley.com/ralph/) | — | fresh-session loop + single task + git anchors | unbounded loop | unbounded = burning money; replaced with deterministic gate + breaker |
+| [planning-with-files](https://github.com/OthmanAdi/planning-with-files) | 27k★ | files-as-plan + re-injection | npm distribution | bash + markdown achieves the same, zero deps |
+| [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) | — | everything-on-disk + evidence-as-done | multi-harness layer | stay focused on Codex |
+| [Skills ecosystem](https://github.com/vercel-labs/skills) | 20k★ | SKILL.md progressive disclosure | marketplace | reuse the format, skip the package manager |
+| [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit) | — | staged flow + retrospective | Issue projection | single-repo loop already covers it |
+
+### Wave 2: Codex enhancement
+
+| Source | Stars | Kept | Dropped | Why |
+|:---|:---|:---|:---|:---|
+| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) | 136+ | sandbox philosophy / model routing / TOML schema | all 136 agents | distilled to 3 universal roles |
+| [Codex official docs 2026](https://developers.openai.com/codex/subagents) | — | skill scopes / 2% budget / `agents/openai.yaml` | — | adopted directly |
+| 200k★ CLAUDE.md governance | 200k★ | four behavioral laws | rule-by-rule lists | principles travel, rules don't |
+| [cc-switch](https://github.com/farion1231/cc-switch) | 132k★ | multi-harness config management | desktop app | bash covers the core path |
+| [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 127k★ | curated recommendation | bundling | not universal |
+
+### Wave 3: Skills ecosystem
+
+| Source | Stars | Kept | Dropped | Why |
+|:---|:---|:---|:---|:---|
+| [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) | 179★ | 10-category taxonomy / 103 skills curation | full bundle | navigate on demand, don't bundle |
+| [SkillHone](https://github.com/Tencent/SkillHone) | 149★ | decision-record → self-evolution loop | Git issue/PR/wiki automation | keep the core loop, bash is lighter |
+| [codex-skills CLI](https://github.com/neusse/codex-skills) | — | global Ledger / verify command | npm CLI | folded into flow hub skill text |
+| [sail-skill](https://github.com/pillar-labs/sail-skill) | 119★ | 91-item security risk catalog | standalone install | folded into references for on-demand trigger |
+| [design-harness](https://github.com/tigerless-labs/design-harness) | 217★ | papers → defensible design + provenance | Python visualization | keep the mindset, drop the tool dependency |
+| [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) | 1470+ | npx install standard / bundle strategy | all 1470 skills | curate & navigate, don't bundle |
 
 Full rationale in **[docs/DESIGN.md](docs/DESIGN.md)**.
 
@@ -177,22 +413,37 @@ codex    # then say "help me plan this feature"
 
 </details>
 
+<br/>
+
+<div align="center">
+
+---
+
 ## 🙏 Credits
 
 Distilled with respect from:
-[Ralph pattern](https://ghuntley.com/ralph/) ·
-[oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) ·
-[planning-with-files](https://github.com/OthmanAdi/planning-with-files) ·
-[codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) ·
-[Vercel Skills CLI](https://github.com/vercel-labs/skills) ·
-[coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit) ·
-[awesome-codex-cli](https://github.com/ELM-labs-projects/awesome-codex-cli)
 
----
+<br/>
+
+<sub>
+
+**Workflow engine** — [Ralph pattern](https://ghuntley.com/ralph/) · [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) · [planning-with-files](https://github.com/OthmanAdi/planning-with-files) · [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) · [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit)
+
+**Codex enhancement** — [Vercel Skills CLI](https://github.com/vercel-labs/skills) · [awesome-codex-cli](https://github.com/ELM-labs-projects/awesome-codex-cli) · [cc-switch](https://github.com/farion1231/cc-switch) · [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
+
+**Skills ecosystem** — [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) · [SkillHone](https://github.com/Tencent/SkillHone) · [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) · [awesome-design-skills](https://github.com/bergside/awesome-design-skills) · [awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) · [sail-skill](https://github.com/pillar-labs/sail-skill) · [design-harness](https://github.com/tigerless-labs/design-harness) · [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) · [codex-skills CLI](https://github.com/neusse/codex-skills) · [ok-skills](https://github.com/mxyhi/ok-skills)
+
+</sub>
+
+</div>
+
+<br/>
 
 <div align="center">
 
 **codex-autoflow** — autonomous, but in control.
+
+<br/>
 
 [📚 Docs](docs/DESIGN.md) · [🐛 Issues](https://github.com/KanQiXing/codex-autoflow/issues) · [⭐ Stars](https://github.com/KanQiXing/codex-autoflow/stargazers)
 

@@ -2,23 +2,38 @@
 
 <img src="docs/banner.svg" width="920" alt="codex-autoflow banner"/>
 
+<br/>
+
 # ⚡ codex-autoflow
 
-**访谈 → 规划 → 审批 → 持续执行 → 验证 → 复盘**
+### 访谈 → 规划 → 审批 → 持续执行 → 验证 → 复盘
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=17&pause=1300&color=3FB950&center=true&vCenter=true&random=false&width=620&height=45&lines=State+is+files.+History+is+git.;Evidence+or+it+didn%27t+happen.;One+task+per+fresh+session.;Approve+before+acting.)](https://git.io/typing-svg)
+### 蒸馏自 12 个开源项目 · 零依赖 · 一个 bash 文件
+
+<br/>
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=16&pause=1300&color=3FB950&center=true&vCenter=true&random=false&width=620&height=40&lines=State+is+files.+History+is+git.;Evidence+or+it+didn%27t+happen.;One+task+per+fresh+session.;Approve+before+acting.;Skills+that+evolve+with+use.)](https://git.io/typing-svg)
+
+<br/>
 
 ![version](https://img.shields.io/badge/version-1.0.0-3fb950?style=flat-square)
 ![shell](https://img.shields.io/badge/shell-bash-4EAA25?style=flat-square&logo=gnu-bash&logoColor=white)
 ![deps](https://img.shields.io/badge/dependencies-zero-00ADD8?style=flat-square)
 ![codex](https://img.shields.io/badge/powered_by-OpenAI_Codex-412991?style=flat-square&logo=openai&logoColor=white)
+![skills](https://img.shields.io/badge/skills-8-FF6B35?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
-**[English](README.en.md)** · **[设计蒸馏](docs/DESIGN.md)** · **[60 秒上手](#-60-秒上手)**
+<br/>
+
+**[English](README.en.md)** · **[设计蒸馏](docs/DESIGN.md)** · **[快速上手 ↓](#-60-秒上手)**
 
 </div>
 
----
+<br/>
+
+<table>
+<tr>
+<td width="50%">
 
 ## 💀 裸用 Codex 的四种死法
 
@@ -29,21 +44,35 @@
 | 🎭 **假完成** | 「done!」但测试从没跑过 | 验证门禁：证据即完成 |
 | 💥 **断线失踪** | 中断后无法安全恢复 | 每任务一提交，磁盘即断点 |
 
-## ✨ 核心特性
+</td>
+<td width="50%">
+
+## ✨ 核心特性一览
 
 | | |
 |:---|:---|
 | 🔌 **零依赖** | bash + git + codex，无 node / python / perl |
 | 🗣️ **深度访谈** | 三轮追问把模糊想法澄清成可验收 PRD |
 | 📝 **单会话粒度规划** | 任务拆到一轮会话可完成，拓扑排序 |
-| ✅ **审批门禁** | 人类只审一份 `PLAN.md`，即控制全部自主执行 |
-| 🔄 **Ralph 循环** | 每轮全新会话只做一个任务，干净上下文胜过长上下文 |
-| 🧯 **停滞熔断** | 连续 3 轮无新提交自动停机，防止烧钱空转 |
-| 🔬 **证据即完成** | 验证命令 + 输出落盘 `VERIFICATIONS/`，无证据不勾选 |
-| 🧠 **跨会话记忆** | `MEMORY.md` 蒸馏教训与约定，对抗上下文腐烂 |
-| 🚄 **flow powerup** | 一条命令全面体检并调优 Codex 本体（AGENTS.md/config/技能/子代理/MCP） |
+| ✅ **审批门禁** | 人类只审一份 `PLAN.md`，控制全部执行 |
+| 🔄 **Ralph 循环** | 每轮全新会话只做一个任务 |
+| 🧯 **停滞熔断** | 连续 3 轮无提交自动停机 |
+| 🔬 **证据即完成** | 验证输出落盘 `VERIFICATIONS/` |
+| 🧠 **跨会话记忆** | `MEMORY.md` 蒸馏教训与约定 |
+| 🚄 **flow powerup** | 一条命令体检调优 Codex 本体 |
+| 🌐 **flow hub** | 技能发现/安装/策展/安全审计 |
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
 
 ## 🚀 60 秒上手
+
+</div>
 
 ```bash
 git clone https://github.com/KanQiXing/codex-autoflow.git
@@ -94,37 +123,103 @@ $ flow run 10
 
 </details>
 
-## 🚄 powerup：给 Codex 本体增压
+<br/>
 
-不止管项目工作流，还增强 Codex 自身。统一技能 `flow-powerup` 一站式覆盖 2026 官方全部增强面：
+<div align="center">
 
-| 增强面 | 覆盖内容 |
-|:---|:---|
-| 📄 AGENTS.md 分层 | 审计/生成四层指令链（全局→仓库→子目录→override），治理四原则 |
-| 🤖 子代理 | 三件套 TOML（reviewer 只读审查 / implementer 写码执行 / researcher 快速侦察）+ 定制指南 |
-| ⚙️ config.toml | 模型路由经济学、`[agents]` 护栏（max_depth=1 防扇出）、技能开关 |
-| 🎯 技能面 | description 广告位优化（2% 上下文预算）、高星技能选装、三条激活入口 |
-| 🔌 MCP / 界面端 | 服务器接入、`/agent` 线程切换、Record & Replay 录制技能 |
+## 🔧 三大引擎模块
 
-```bash
-flow powerup            # 交互式全面体检 + 按需调优
-flow powerup install    # 只装三件套子代理 -> .codex/agents/
+</div>
+
+<table>
+<tr>
+<th width="33%" align="center">
+
+## 🔄 项目自治引擎
+
+</th>
+<th width="33%" align="center">
+
+## 🚄 Codex 本体增压
+
+</th>
+<th width="33%" align="center">
+
+## 🌐 技能生态中心
+
+</th>
+</tr>
+<tr>
+<td valign="top">
+
+**6 阶段闭环：**
+
+```
+interview  → PRD.md
+plan       → PLAN.md
+approve    → APPROVED
+run [N]    → 代码+证据
+verify     → VERIFICATIONS/
+review     → LESSONS.md
 ```
 
-<details>
-<summary>🧪 <b>第二波蒸馏：更多来源与取舍</b>（点击展开）</summary>
+**铁律：**
+- 一切落盘
+- 先审后动
+- 单任务循环
+- 证据即完成
+- 上下文重注入
+- 停滞 3 轮熔断
 
-| 来源 | 取 | 舍 |
-|:---|:---|:---|
-| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents)（136+ 子代理） | 沙箱哲学（审查只读/执行受限写）、模型路由、TOML 字段规范 | 136 个全量代理（精馏为 3 个普适角色） |
-| [Codex 官方文档 2026](https://developers.openai.com/codex/subagents) | Skills 四作用域、渐进披露 2% 预算、`agents/openai.yaml` | — |
-| 20万★ CLAUDE.md 治理经验 | 四行为铁则（Think/Simplicity/Surgical/Goal-Driven） | 逐条规则（提炼为原则） |
-| [cc-switch](https://github.com/farion1231/cc-switch) 132k★ | 多 harness 配置管理思路 | 桌面 App（bash 即可覆盖核心路径） |
-| [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) 127k★ | 作为技能面推荐项 | 内置（非普适场景） |
+</td>
+<td valign="top">
 
-</details>
+**5 大增强面：**
+
+| 面 | 覆盖 |
+|:---|:---|
+| 📄 AGENTS.md | 四层指令链 + 治理原则 |
+| 🤖 子代理 | 三件套 TOML 角色 |
+| ⚙️ config | 模型路由 + 护栏 |
+| 🎯 技能面 | description 优化 |
+| 🔌 MCP | 服务器 + 界面端 |
+
+```bash
+flow powerup
+flow powerup install
+```
+
+</td>
+<td valign="top">
+
+**策展 10+ 社区来源：**
+
+| 来源 | 规模 |
+|:---|:---|
+| antigravity-skills | 1470+ |
+| awesome-ai-skills | 103 |
+| awesome-codex-skills | 100+ |
+| design-skills | 67 |
+| gamedev-skills | 73 |
+| SAIL 安全 | 91 项 |
+
+```bash
+flow hub
+```
+
+含：技能自进化 · 安全审计 · 全局 Ledger
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
 
 ## 🧠 工作原理
+
+</div>
 
 ```mermaid
 flowchart TD
@@ -146,23 +241,69 @@ flowchart TD
     end
     R -->|"全部完成"| V["🔬 flow verify 重验"]
     V --> RV["📖 flow review 复盘 → LESSONS.md"]
+    RV -->|"教训沉淀"| MEM["🧠 MEMORY.md"]
 ```
+
+<br/>
+
+<div align="center">
 
 ## 📋 命令速查
 
-| 命令 | 作用 | 产物 |
-|:---|:---|:---|
-| <kbd>flow init</kbd> | 初始化状态目录 + AGENTS 契约 | `.flow/` |
-| <kbd>flow interview</kbd> | 深度访谈澄清需求（交互式） | `.flow/PRD.md` |
-| <kbd>flow plan</kbd> | PRD → 单会话粒度任务清单 | `.flow/PLAN.md` |
-| <kbd>flow approve</kbd> | 人工批准计划 | `.flow/APPROVED` |
-| <kbd>flow run [N]</kbd> | 自治循环（默认 10 轮，停滞 3 轮熔断） | 代码 + 证据 + 提交 |
-| <kbd>flow once</kbd> | 单轮执行（调试提示词用） | — |
-| <kbd>flow verify</kbd> | 重验全部已完成任务 | 刷新 `VERIFICATIONS/` |
-| <kbd>flow review</kbd> | 复盘蒸馏 | `.flow/LESSONS.md` |
-| <kbd>flow status</kbd> | 进度概览 | — |
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+### 项目工作流
+
+| 命令 | 作用 |
+|:---|:---|
+| <kbd>flow init</kbd> | 初始化状态目录 + AGENTS 契约 |
+| <kbd>flow interview</kbd> | 深度访谈澄清需求 |
+| <kbd>flow plan</kbd> | PRD → 任务清单 |
+| <kbd>flow approve</kbd> | 人工批准计划 |
+| <kbd>flow run [N]</kbd> | 自治循环（默认 10 轮） |
+| <kbd>flow once</kbd> | 单轮执行（调试用） |
+| <kbd>flow verify</kbd> | 重验全部已完成任务 |
+| <kbd>flow review</kbd> | 复盘蒸馏 → LESSONS.md |
+| <kbd>flow status</kbd> | 进度概览 |
+
+</td>
+<td width="50%">
+
+### Codex 增强
+
+| 命令 | 作用 |
+|:---|:---|
+| <kbd>flow powerup</kbd> | 体检+调优 Codex 本体 |
+| <kbd>flow powerup install</kbd> | 装三件套子代理 |
+| <kbd>flow hub</kbd> | 技能发现/策展/安全审计 |
+
+### 8 个内置技能
+
+| 技能 | 触发场景 |
+|:---|:---|
+| `flow-interview` | 需求澄清 |
+| `flow-plan` | 任务拆分 |
+| `flow-execute` | 单任务实现 |
+| `flow-verify` | 验证收集 |
+| `flow-review` | 复盘蒸馏 |
+| `flow-powerup` | Codex 调优 |
+| `flow-skills-hub` | 技能生态 |
+
+</td>
+</tr>
+</table>
+
+<br/>
+
+<div align="center">
 
 ## 📁 `.flow/` 状态契约
+
+</div>
 
 | 文件 | 角色 | 谁写 |
 |:---|:---|:---:|
@@ -174,27 +315,77 @@ flowchart TD
 | `APPROVED` | 审批印章 | 👤 **你** |
 | `last-run.log` | 最近一轮 codex 输出 | ⚙️ run |
 
+<br/>
+
+<div align="center">
+
 ## ⚖️ 五条铁律
 
-| # | 铁律 | 一句话 |
-|:---:|:---|:---|
-| 1 | 🗄️ **一切落盘** | 会话随时会被杀，磁盘不会；恢复靠文件不靠记忆 |
-| 2 | ✅ **先审后动** | 未审批的计划，脚本与提示词双重拒绝执行 |
-| 3 | 1️⃣ **单任务循环** | 每轮全新会话只做一个任务，一个任务一个提交 |
-| 4 | 🔬 **证据即完成** | 没有验证证据不许勾选任务 |
-| 5 | 🔁 **上下文重注入** | 每轮第一步永远是重读 `.flow/*` |
+</div>
+
+<table>
+<tr>
+<th width="40%" align="center">铁律</th>
+<th width="60%" align="center">一句话</th>
+</tr>
+<tr>
+<td align="center">🗄️ <b>一切落盘</b></td>
+<td>会话随时会被杀，磁盘不会；恢复靠文件不靠记忆</td>
+</tr>
+<tr>
+<td align="center">✅ <b>先审后动</b></td>
+<td>未审批的计划，脚本与提示词双重拒绝执行</td>
+</tr>
+<tr>
+<td align="center">1️⃣ <b>单任务循环</b></td>
+<td>每轮全新会话只做一个任务，一个任务一个提交</td>
+</tr>
+<tr>
+<td align="center">🔬 <b>证据即完成</b></td>
+<td>没有验证证据不许勾选任务</td>
+</tr>
+<tr>
+<td align="center">🔁 <b>上下文重注入</b></td>
+<td>每轮第一步永远是重读 `.flow/*`</td>
+</tr>
+</table>
+
+<br/>
 
 <details>
-<summary>🧪 <b>设计蒸馏：六大项目 → 一个引擎</b>（点击展开取舍全表）</summary>
+<summary>🧪 <b>设计蒸馏：12 个项目 → 一个引擎</b>（点击展开完整取舍表）</summary>
 
-| 来源 | 取 | 舍 | 舍弃理由 |
-|:---|:---|:---|:---|
-| [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) 33k★ | 访谈→规划→审批门禁 | 多智能体 / HUD | 编排收益不稳定，复杂度上升是确定的 |
-| [Ralph 模式](https://ghuntley.com/ralph/) | 新会话循环 + 单任务 + git 锚点 | 无界循环 | 无界 = 失控烧钱；改确定性门禁 + 熔断 |
-| [planning-with-files](https://github.com/OthmanAdi/planning-with-files) 27k★ | 文件即计划 + 重注入 | npm 分发 | bash + markdown 达成同样效果 |
-| [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) | 一切落盘 + 证据即完成 | 多 harness 层 | 聚焦 Codex，砍掉间接层 |
-| [Skills 生态](https://github.com/vercel-labs/skills) | SKILL.md 渐进披露 | 市场化分发 | 复用格式，不需要包管理器 |
-| [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit) | 阶段化流程 + 复盘 | Issue 投影 | 单仓库闭环已覆盖 |
+### 第一波：工作流引擎骨架
+
+| 来源 | 星数 | 取 | 舍 | 舍弃理由 |
+|:---|:---|:---|:---|:---|
+| [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) | 33k★ | 访谈→规划→审批门禁 | 多智能体 / HUD | 编排收益不稳定，复杂度上升是确定的 |
+| [Ralph 模式](https://ghuntley.com/ralph/) | — | 新会话循环 + 单任务 + git 锚点 | 无界循环 | 无界 = 失控烧钱；改确定性门禁 + 熔断 |
+| [planning-with-files](https://github.com/OthmanAdi/planning-with-files) | 27k★ | 文件即计划 + 重注入 | npm 分发 | bash + markdown 达成同样效果 |
+| [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) | — | 一切落盘 + 证据即完成 | 多 harness 层 | 聚焦 Codex，砍掉间接层 |
+| [Skills 生态](https://github.com/vercel-labs/skills) | 20k★ | SKILL.md 渐进披露 | 市场化分发 | 复用格式，不需要包管理器 |
+| [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit) | — | 阶段化流程 + 复盘 | Issue 投影 | 单仓库闭环已覆盖 |
+
+### 第二波：Codex 本体增强
+
+| 来源 | 星数 | 取 | 舍 | 舍弃理由 |
+|:---|:---|:---|:---|:---|
+| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) | 136+ | 沙箱哲学 / 模型路由 / TOML 规范 | 全量 136 代理 | 精馏为 3 个普适角色 |
+| [Codex 官方文档 2026](https://developers.openai.com/codex/subagents) | — | Skills 四作用域 / 2% 预算 | — | 直接采用 |
+| 20万★ CLAUDE.md 治理 | 200k★ | 四行为铁则 | 逐条规则 | 原则可迁移，规则不可 |
+| [cc-switch](https://github.com/farion1231/cc-switch) | 132k★ | 多 harness 配置管理 | 桌面 App | bash 覆盖核心路径 |
+| [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 127k★ | 技能面推荐项 | 内置 | 非普适场景 |
+
+### 第三波：技能生态
+
+| 来源 | 星数 | 取 | 舍 | 舍弃理由 |
+|:---|:---|:---|:---|:---|
+| [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) | 179★ | 10 分类法 / 103 技能策展 | 全量内置 | 按需导航而非全量打包 |
+| [SkillHone](https://github.com/Tencent/SkillHone) | 149★ | 决策记录 → 自进化循环 | Git issue/PR/wiki 自动化 | 保留核心循环，bash 实现更轻 |
+| [codex-skills CLI](https://github.com/neusse/codex-skills) | — | 全局 Ledger / verify 命令 | npm CLI | 纳入 flow hub 技能正文 |
+| [sail-skill](https://github.com/pillar-labs/sail-skill) | 119★ | 91 项安全风险目录 | 独立安装 | 纳入 references 供按需触发 |
+| [design-harness](https://github.com/tigerless-labs/design-harness) | 217★ | 论文 → 可辩护设计 + provenance | Python 可视化 | 保留思维模式，去掉工具依赖 |
+| [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) | 1470+ | npx 安装标准 / bundle 策略 | 全量 1470 技能 | 策展导航而非打包 |
 
 完整取舍论证见 **[docs/DESIGN.md](docs/DESIGN.md)**。
 
@@ -222,23 +413,37 @@ codex    # 然后说"帮我规划这个功能"
 
 </details>
 
+<br/>
+
+<div align="center">
+
+---
+
 ## 🙏 致谢
 
 站在巨人肩膀上的蒸馏，向以下项目致敬：
 
-[Ralph 模式](https://ghuntley.com/ralph/) ·
-[oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) ·
-[planning-with-files](https://github.com/OthmanAdi/planning-with-files) ·
-[codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) ·
-[Vercel Skills CLI](https://github.com/vercel-labs/skills) ·
-[coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit) ·
-[awesome-codex-cli](https://github.com/ELM-labs-projects/awesome-codex-cli)
+<br/>
 
----
+<sub>
+
+**工作流引擎** — [Ralph 模式](https://ghuntley.com/ralph/) · [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) · [planning-with-files](https://github.com/OthmanAdi/planning-with-files) · [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) · [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit)
+
+**Codex 增强** — [Vercel Skills CLI](https://github.com/vercel-labs/skills) · [awesome-codex-cli](https://github.com/ELM-labs-projects/awesome-codex-cli) · [cc-switch](https://github.com/farion1231/cc-switch) · [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
+
+**技能生态** — [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) · [SkillHone](https://github.com/Tencent/SkillHone) · [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) · [awesome-design-skills](https://github.com/bergside/awesome-design-skills) · [awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) · [sail-skill](https://github.com/pillar-labs/sail-skill) · [design-harness](https://github.com/tigerless-labs/design-harness) · [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) · [codex-skills CLI](https://github.com/neusse/codex-skills) · [ok-skills](https://github.com/mxyhi/ok-skills)
+
+</sub>
+
+</div>
+
+<br/>
 
 <div align="center">
 
 **codex-autoflow** — 自主，但可控。
+
+<br/>
 
 [📚 文档](docs/DESIGN.md) · [🐛 报告问题](https://github.com/KanQiXing/codex-autoflow/issues) · [⭐ 点个星标](https://github.com/KanQiXing/codex-autoflow/stargazers)
 

@@ -7,6 +7,7 @@
 - `flow` 是唯一可执行入口：所有命令、Ralph 循环、熔断逻辑都在这一个 bash 文件里，禁止拆分成多脚本
 - `skills/*/SKILL.md` 三位一体：技能 = 提示词 = 文档。YAML frontmatter 供发现与路由，正文被 `flow` 剥离 frontmatter 后直接注入 codex
 - `skills/flow-powerup/` 是 Codex 增强套件：`references/` 放深度指南（渐进披露），`assets/` 放可安装的子代理 TOML
+- `skills/flow-skills-hub/` 是技能生态中心：`references/` 放技能分类法/自进化/安全审计指南。只做策展导航，不内置社区技能
 - `templates/` 是 `flow init` 复制到用户项目的初始状态文件
 - `docs/DESIGN.md` 是设计蒸馏说明：改动核心设计前必读，改动后同步更新
 

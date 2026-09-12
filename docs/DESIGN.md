@@ -64,6 +64,24 @@
 
 **统一为一个技能的设计**：`flow-powerup` 单入口覆盖五大增强面（AGENTS.md / 子代理 / config / 技能面 / MCP+界面端），深度资料放 `references/`（渐进披露）、可安装资产放 `assets/`（三个 TOML）——符合官方技能解剖结构，description 即广告位。
 
+## 第三波蒸馏：技能生态中心（flow-skills-hub）
+
+> 来源：10+ 社区技能仓库 + SkillHone 自进化 + SAIL 安全审计 + codex-skills CLI
+
+| 来源 | 规模 | 取 | 舍 | 舍弃理由 |
+|------|------|----|----|---------|
+| [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) | 179★ · 103 技能 | 10 分类法 / 策展方法论 | 全量内置 103 技能 | 按需导航而非全量打包，避免膨胀 |
+| [SkillHone](https://github.com/Tencent/SkillHone) | 149★ | 决策记录 → 自进化循环 | Git issue/PR/wiki 自动化 | 保留核心循环（DECISIONS.md → reviewer 审计 → 优化），bash 实现更轻 |
+| [codex-skills CLI](https://github.com/neusse/codex-skills) | — | 全局 Ledger 模式 / verify 命令 / catalog + `--ref` pinning | npm CLI 工具 | 纳入 flow hub 技能正文，不需要独立 CLI |
+| [sail-skill](https://github.com/pillar-labs/sail-skill) | 119★ | 91 项 AI 安全风险目录（9 大类） | 独立安装与品牌 | 纳入 `references/security-audit.md` 供按需触发 |
+| [design-harness](https://github.com/tigerless-labs/design-harness) | 217★ | 论文 → 可辩护系统设计 + provenance 思维 | Python 可视化画布 | 保留思维模式，去掉工具依赖 |
+| [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) | 1470+ 技能 | npx 安装标准 / bundle 策略 / 分类导航 | 全量 1470 技能 | 策展导航而非打包，推荐标准安装路径 |
+| [awesome-design-skills](https://github.com/bergside/awesome-design-skills) | 2.7k★ · 67 技能 | 设计技能策展 | — | 列入推荐清单 |
+| [awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) | 963★ · 73 技能 | 游戏引擎适配 + 路由器模式 | — | 列入推荐清单 |
+| [ok-skills](https://github.com/mxyhi/ok-skills) | 485★ | AGENTS.md playbook 模式 | — | 列入推荐清单 |
+
+**统一为一个技能的设计**：`flow-skills-hub` 单入口覆盖技能发现/安装/策展/自进化/安全审计。三份深度参考文档（`skill-taxonomy.md` / `self-evolution.md` / `security-audit.md`）按需渐进披露。不内置任何社区技能——只做策展导航，避免技能膨胀拖慢初始列表。
+
 ## 致谢
 
 本项目是站在巨人肩膀上的蒸馏，向全部来源项目及其作者致敬。
