@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-label="codex-autoflow animated banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#161b22"/>
+    </linearGradient>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#58a6ff"/>
+      <stop offset="50%" stop-color="#bc8cff"/>
+      <stop offset="100%" stop-color="#3fb950"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+    .flow { stroke-dasharray: 5 5; animation: dash .9s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -10; } }
+    .pulse { animation: pulse 2.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity:.12 } 50% { opacity:.45 } }
+  </style>
+
+  <!-- 背景 -->
+  <rect width="960" height="320" rx="14" fill="url(#bg)" stroke="#30363d" stroke-width="1"/>
+
+  <!-- 标题 -->
+  <text x="480" y="52" text-anchor="middle" font-size="27" font-weight="700" fill="url(#tg)">&#9889; codex-autoflow</text>
+  <text x="480" y="78" text-anchor="middle" font-size="13" fill="#8b949e">蒸馏自六大开源工作流的 Codex CLI 自治执行引擎 · distilled autonomous workflow harness</text>
+
+  <!-- 执行节点: 光晕脉冲 -->
+  <rect x="493" y="122" width="122" height="76" rx="12" fill="#3fb950" class="pulse"/>
+  <!-- Ralph 循环轨道(旋转虚线圆), 绘制在方块之下 -->
+  <circle cx="554" cy="160" r="50" fill="none" stroke="#3fb950" stroke-width="1.2" stroke-dasharray="4 9" opacity="0.85">
+    <animateTransform attributeName="transform" type="rotate" from="0 554 160" to="360 554 160" dur="8s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- 六阶段流水线 -->
+  <g>
+    <rect x="55"  y="128" width="110" height="64" rx="10" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="110" y="157" text-anchor="middle" font-size="16" font-weight="700" fill="#e6edf3">访谈</text>
+    <text x="110" y="177" text-anchor="middle" font-size="10" fill="#58a6ff">interview</text>
+  </g>
+  <g>
+    <rect x="203" y="128" width="110" height="64" rx="10" fill="#161b22" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="258" y="157" text-anchor="middle" font-size="16" font-weight="700" fill="#e6edf3">规划</text>
+    <text x="258" y="177" text-anchor="middle" font-size="10" fill="#bc8cff">plan</text>
+  </g>
+  <g>
+    <rect x="351" y="128" width="110" height="64" rx="10" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+    <text x="406" y="157" text-anchor="middle" font-size="16" font-weight="700" fill="#e6edf3">审批</text>
+    <text x="406" y="177" text-anchor="middle" font-size="10" fill="#d29922">approve</text>
+  </g>
+  <g>
+    <rect x="499" y="128" width="110" height="64" rx="10" fill="#1a2e22" stroke="#3fb950" stroke-width="2"/>
+    <text x="554" y="157" text-anchor="middle" font-size="16" font-weight="700" fill="#3fb950">执行</text>
+    <text x="554" y="177" text-anchor="middle" font-size="10" fill="#3fb950">run &#183; ralph</text>
+  </g>
+  <g>
+    <rect x="647" y="128" width="110" height="64" rx="10" fill="#161b22" stroke="#39c5cf" stroke-width="1.5"/>
+    <text x="702" y="157" text-anchor="middle" font-size="16" font-weight="700" fill="#e6edf3">验证</text>
+    <text x="702" y="177" text-anchor="middle" font-size="10" fill="#39c5cf">verify</text>
+  </g>
+  <g>
+    <rect x="795" y="128" width="110" height="64" rx="10" fill="#161b22" stroke="#f778ba" stroke-width="1.5"/>
+    <text x="850" y="157" text-anchor="middle" font-size="16" font-weight="700" fill="#e6edf3">复盘</text>
+    <text x="850" y="177" text-anchor="middle" font-size="10" fill="#f778ba">review</text>
+  </g>
+
+  <!-- 流动虚线连接线 -->
+  <line x1="169" y1="160" x2="196" y2="160" stroke="#8b949e" stroke-width="1.5" class="flow" marker-end="url(#arr)"/>
+  <line x1="317" y1="160" x2="344" y2="160" stroke="#8b949e" stroke-width="1.5" class="flow" marker-end="url(#arr)"/>
+  <line x1="465" y1="160" x2="492" y2="160" stroke="#8b949e" stroke-width="1.5" class="flow" marker-end="url(#arr)"/>
+  <line x1="613" y1="160" x2="640" y2="160" stroke="#8b949e" stroke-width="1.5" class="flow" marker-end="url(#arr)"/>
+  <line x1="761" y1="160" x2="788" y2="160" stroke="#8b949e" stroke-width="1.5" class="flow" marker-end="url(#arr)"/>
+
+  <!-- 注解 -->
+  <text x="406" y="216" text-anchor="middle" font-size="10" fill="#d29922">&#128100; 人工审批 &#183; 人类唯一的控制点</text>
+  <text x="554" y="238" text-anchor="middle" font-size="10" fill="#3fb950">&#128260; Ralph 循环 &#183; 每轮全新会话 &#183; 单任务</text>
+
+  <!-- 底部标语 -->
+  <rect x="215" y="262" width="530" height="1" fill="#30363d"/>
+  <text x="480" y="290" text-anchor="middle" font-size="12" fill="#8b949e">零依赖 bash + git + codex &#183; 状态即文件 &#183; 历史即 git &#183; 证据即完成</text>
+</svg>
