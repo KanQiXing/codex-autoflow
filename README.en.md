@@ -198,11 +198,11 @@ flow powerup install
 
 | Source | Size |
 |:---|:---|
-| antigravity-skills | 1470+ |
-| awesome-ai-skills | 103 |
-| awesome-codex-skills | 100+ |
-| design-skills | 67 |
-| gamedev-skills | 73 |
+| antigravity-skills | 46.3k★ · 2100+ skills |
+| awesome-ai-skills | 179★ · 103 skills |
+| awesome-codex-skills | 16.4k★ |
+| design-skills | 2.8k★ |
+| gamedev-skills | 963★ |
 | SAIL security | 91 risks |
 
 ```bash
@@ -373,9 +373,9 @@ flowchart TD
 
 | Source | Stars | Kept | Dropped | Why |
 |:---|:---|:---|:---|:---|
-| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) | 136+ | sandbox philosophy / model routing / TOML schema | all 136 agents | distilled to 3 universal roles |
+| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) | 6.2k★ · 130+ agents | sandbox philosophy / model routing / TOML schema | all agents | distilled to 3 universal roles |
 | [Codex official docs 2026](https://developers.openai.com/codex/subagents) | — | skill scopes / 2% budget / `agents/openai.yaml` | — | adopted directly |
-| 200k★ CLAUDE.md governance | 200k★ | four behavioral laws | rule-by-rule lists | principles travel, rules don't |
+| CLAUDE.md governance (community) | — | four behavioral laws | rule-by-rule lists | principles travel, rules don't |
 | [cc-switch](https://github.com/farion1231/cc-switch) | 132k★ | multi-harness config management | desktop app | bash covers the core path |
 | [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 127k★ | curated recommendation | bundling | not universal |
 
@@ -385,10 +385,10 @@ flowchart TD
 |:---|:---|:---|:---|:---|
 | [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) | 179★ | 10-category taxonomy / 103 skills curation | full bundle | navigate on demand, don't bundle |
 | [SkillHone](https://github.com/Tencent/SkillHone) | 149★ | decision-record → self-evolution loop | Git issue/PR/wiki automation | keep the core loop, bash is lighter |
-| [codex-skills CLI](https://github.com/neusse/codex-skills) | — | global Ledger / verify command | npm CLI | folded into flow hub skill text |
+| [codex-skills CLI (community)](https://github.com/search?q=codex+skills+cli&type=repositories) | — | global Ledger / verify command | npm CLI | folded into flow hub skill text |
 | [sail-skill](https://github.com/pillar-labs/sail-skill) | 119★ | 91-item security risk catalog | standalone install | folded into references for on-demand trigger |
 | [design-harness](https://github.com/tigerless-labs/design-harness) | 217★ | papers → defensible design + provenance | Python visualization | keep the mindset, drop the tool dependency |
-| [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) | 1470+ | npx install standard / bundle strategy | all 1470 skills | curate & navigate, don't bundle |
+| [antigravity-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | 46.3k★ · 2100+ skills | npx install standard / bundle strategy | full bundle | curate & navigate, don't bundle |
 
 Full rationale in **[docs/DESIGN.md](docs/DESIGN.md)**.
 
@@ -442,9 +442,9 @@ Distilled with respect from:
 
 **Workflow engine** — [Ralph pattern](https://ghuntley.com/ralph/) · [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) · [planning-with-files](https://github.com/OthmanAdi/planning-with-files) · [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) · [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit)
 
-**Codex enhancement** — [Vercel Skills CLI](https://github.com/vercel-labs/skills) · [awesome-codex-cli](https://github.com/ELM-labs-projects/awesome-codex-cli) · [cc-switch](https://github.com/farion1231/cc-switch) · [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
+**Codex enhancement** — [Vercel Skills CLI](https://github.com/vercel-labs/skills) · [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) · [cc-switch](https://github.com/farion1231/cc-switch) · [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
 
-**Skills ecosystem** — [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) · [SkillHone](https://github.com/Tencent/SkillHone) · [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) · [awesome-design-skills](https://github.com/bergside/awesome-design-skills) · [awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) · [sail-skill](https://github.com/pillar-labs/sail-skill) · [design-harness](https://github.com/tigerless-labs/design-harness) · [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) · [codex-skills CLI](https://github.com/neusse/codex-skills) · [ok-skills](https://github.com/mxyhi/ok-skills)
+**Skills ecosystem** — [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) · [SkillHone](https://github.com/Tencent/SkillHone) · [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) · [awesome-design-skills](https://github.com/bergside/awesome-design-skills) · [awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) · [sail-skill](https://github.com/pillar-labs/sail-skill) · [design-harness](https://github.com/tigerless-labs/design-harness) · [antigravity-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) · [ok-skills](https://github.com/mxyhi/ok-skills)
 
 </sub>
 

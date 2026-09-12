@@ -15,7 +15,7 @@ description: Codex 技能生态中心。发现、安装、管理、自进化社�
 
 | 分类 | 来源 | 规模 | 典型场景 |
 |------|------|------|---------|
-| 全能合集 | [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) | 1470+ | 全场景一键安装 |
+| 全能合集 | [antigravity-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | 46.3k★ · 2100+ 技能 | 全场景一键安装 |
 | 103 分类合集 | [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) | 103 | 按分类精确选装 |
 | Codex 专用 | [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) | 100+ | CI修复/changelog/会议 |
 | 设计智能 | [awesome-design-skills](https://github.com/bergside/awesome-design-skills) | 67 | UI/UX/品牌 |
@@ -24,7 +24,7 @@ description: Codex 技能生态中心。发现、安装、管理、自进化社�
 | 金融交易 | [alpaca-skills](https://github.com/alpacahq/alpaca-skills) | — | Alpaca API |
 | 安全审计 | [sail-skill](https://github.com/pillar-labs/sail-skill) | 91 项风险 | AI 安全合规 |
 | 系统设计 | [design-harness](https://github.com/tigerless-labs/design-harness) | — | 论文→可辩护设计 |
-| 精选+ledger | [codex-skills](https://github.com/neusse/codex-skills) | CLI | 全局 ledger/验证 |
+| 精选+ledger | [codex-skills CLI](https://github.com/search?q=codex+skills+cli&type=repositories) | 社区模式 | 全局 ledger/验证 |
 
 **安装方式统一推荐：**
 

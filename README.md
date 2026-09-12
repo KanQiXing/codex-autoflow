@@ -198,11 +198,11 @@ flow powerup install
 
 | 来源 | 规模 |
 |:---|:---|
-| antigravity-skills | 1470+ |
-| awesome-ai-skills | 103 |
-| awesome-codex-skills | 100+ |
-| design-skills | 67 |
-| gamedev-skills | 73 |
+| antigravity-skills | 46.3k★ · 2100+ 技能 |
+| awesome-ai-skills | 179★ · 103 技能 |
+| awesome-codex-skills | 16.4k★ |
+| design-skills | 2.8k★ |
+| gamedev-skills | 963★ |
 | SAIL 安全 | 91 项 |
 
 ```bash
@@ -373,9 +373,9 @@ flowchart TD
 
 | 来源 | 星数 | 取 | 舍 | 舍弃理由 |
 |:---|:---|:---|:---|:---|
-| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) | 136+ | 沙箱哲学 / 模型路由 / TOML 规范 | 全量 136 代理 | 精馏为 3 个普适角色 |
+| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) | 6.2k★ · 130+ 代理 | 沙箱哲学 / 模型路由 / TOML 规范 | 全量代理 | 精馏为 3 个普适角色 |
 | [Codex 官方文档 2026](https://developers.openai.com/codex/subagents) | — | Skills 四作用域 / 2% 预算 | — | 直接采用 |
-| 20万★ CLAUDE.md 治理 | 200k★ | 四行为铁则 | 逐条规则 | 原则可迁移，规则不可 |
+| CLAUDE.md 治理经验（社区广泛流传） | — | 四行为铁则 | 逐条规则 | 原则可迁移，规则不可 |
 | [cc-switch](https://github.com/farion1231/cc-switch) | 132k★ | 多 harness 配置管理 | 桌面 App | bash 覆盖核心路径 |
 | [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 127k★ | 技能面推荐项 | 内置 | 非普适场景 |
 
@@ -385,10 +385,10 @@ flowchart TD
 |:---|:---|:---|:---|:---|
 | [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) | 179★ | 10 分类法 / 103 技能策展 | 全量内置 | 按需导航而非全量打包 |
 | [SkillHone](https://github.com/Tencent/SkillHone) | 149★ | 决策记录 → 自进化循环 | Git issue/PR/wiki 自动化 | 保留核心循环，bash 实现更轻 |
-| [codex-skills CLI](https://github.com/neusse/codex-skills) | — | 全局 Ledger / verify 命令 | npm CLI | 纳入 flow hub 技能正文 |
+| [codex-skills CLI（社区模式）](https://github.com/search?q=codex+skills+cli&type=repositories) | — | 全局 Ledger / verify 命令 | npm CLI | 纳入 flow hub 技能正文 |
 | [sail-skill](https://github.com/pillar-labs/sail-skill) | 119★ | 91 项安全风险目录 | 独立安装 | 纳入 references 供按需触发 |
 | [design-harness](https://github.com/tigerless-labs/design-harness) | 217★ | 论文 → 可辩护设计 + provenance | Python 可视化 | 保留思维模式，去掉工具依赖 |
-| [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) | 1470+ | npx 安装标准 / bundle 策略 | 全量 1470 技能 | 策展导航而非打包 |
+| [antigravity-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) | 46.3k★ · 2100+ 技能 | npx 安装标准 / bundle 策略 | 全量打包 | 策展导航而非打包 |
 
 完整取舍论证见 **[docs/DESIGN.md](docs/DESIGN.md)**。
 
@@ -442,9 +442,9 @@ codex    # 然后说"帮我规划这个功能"
 
 **工作流引擎** — [Ralph 模式](https://ghuntley.com/ralph/) · [oh-my-codex](https://github.com/Yeachan-Heo/oh-my-codex) · [planning-with-files](https://github.com/OthmanAdi/planning-with-files) · [codex_autoworker](https://github.com/Frank-Opus/codex_autoworker) · [coding-agent-toolkit](https://github.com/stefan-jansen/coding-agent-toolkit)
 
-**Codex 增强** — [Vercel Skills CLI](https://github.com/vercel-labs/skills) · [awesome-codex-cli](https://github.com/ELM-labs-projects/awesome-codex-cli) · [cc-switch](https://github.com/farion1231/cc-switch) · [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
+**Codex 增强** — [Vercel Skills CLI](https://github.com/vercel-labs/skills) · [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) · [cc-switch](https://github.com/farion1231/cc-switch) · [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)
 
-**技能生态** — [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) · [SkillHone](https://github.com/Tencent/SkillHone) · [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) · [awesome-design-skills](https://github.com/bergside/awesome-design-skills) · [awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) · [sail-skill](https://github.com/pillar-labs/sail-skill) · [design-harness](https://github.com/tigerless-labs/design-harness) · [antigravity-awesome-skills](https://github.com/kavinduUdhara/antigravity-awesome-skills) · [codex-skills CLI](https://github.com/neusse/codex-skills) · [ok-skills](https://github.com/mxyhi/ok-skills)
+**技能生态** — [awesome-ai-agent-skills](https://github.com/seb1n/awesome-ai-agent-skills) · [SkillHone](https://github.com/Tencent/SkillHone) · [awesome-codex-skills](https://github.com/composio-community/awesome-codex-skills) · [awesome-design-skills](https://github.com/bergside/awesome-design-skills) · [awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) · [sail-skill](https://github.com/pillar-labs/sail-skill) · [design-harness](https://github.com/tigerless-labs/design-harness) · [antigravity-awesome-skills](https://github.com/sickn33/agentic-awesome-skills) · [ok-skills](https://github.com/mxyhi/ok-skills)
 
 </sub>
 

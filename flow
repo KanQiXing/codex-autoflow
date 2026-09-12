@@ -99,6 +99,54 @@ count_open() { _count '^[[:space:]]*- \[ \]'; }
 count_done() { _count '^[[:space:]]*- \[x\]'; }
 count_all()  { _count '^[[:space:]]*- \[[ x]\]'; }
 
+# 依赖图执行：返回下一个可执行任务 ID（所有依赖已完成）
+# 若有未完成任务但全部被阻塞（循环依赖），输出 BLOCKED
+# 若无非完成任务，输出空
+next_task_id() {
+  [ -f "$FLOW_DIR/PLAN.md" ] || return
+  awk '
+    /^[[:space:]]*- \[x\]/ {
+      match($0, /T[0-9]+/);
+      if (RSTART > 0) completed[substr($0, RSTART, RLENGTH)] = 1
+      cur = ""
+      next
+    }
+    /^[[:space:]]*- \[ \]/ {
+      match($0, /T[0-9]+/);
+      if (RSTART > 0) {
+        cur = substr($0, RSTART, RLENGTH)
+        tasks[++n] = cur
+        deps[cur] = "无"
+      }
+      next
+    }
+    /依赖:/ {
+      if (cur != "") {
+        line = $0
+        sub(/.*依赖:[[:space:]]*/, "", line)
+        gsub(/\r/, "", line)
+        deps[cur] = line
+      }
+    }
+    END {
+      for (i = 1; i <= n; i++) {
+        t = tasks[i]
+        d = deps[t]
+        if (d == "" || d == "无" || d ~ /^无[[:space:]]*$/) { print t; exit }
+        ok = 1
+        m = split(d, arr, /[,，、 　]+/)
+        for (j = 1; j <= m; j++) {
+          dep = arr[j]
+          if (dep == "" || dep == "无") continue
+          if (!(dep in completed)) { ok = 0; break }
+        }
+        if (ok) { print t; exit }
+      }
+      if (n > 0) print "BLOCKED"
+    }
+  ' "$FLOW_DIR/PLAN.md"
+}
+
 # 统一调用: $1=技能名 $2=附加输入(可空) $3=tui 时用交互式 codex（访谈需要对话）
 codex_run() {
   require_codex
@@ -286,6 +334,12 @@ run_loop() {
       ok "全部任务完成（共 $iter 轮迭代）"
       finish_review
       return 0
+    fi
+    # 依赖图检查：若所有未完成任务都被阻塞，报告循环依赖并停机
+    local next_id
+    next_id="$(next_task_id)"
+    if [ "$next_id" = "BLOCKED" ]; then
+      die "存在循环依赖或全部任务被阻塞，请检查 PLAN.md 的依赖关系。剩余 $remaining 个任务无法执行。"
     fi
     iter=$((iter + 1))
     if [ "$iter" -gt "$max" ]; then
