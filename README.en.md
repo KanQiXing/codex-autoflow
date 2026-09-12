@@ -41,6 +41,7 @@
 | 🧯 **Stall breaker** | Auto-stops after 3 iterations with no new commit |
 | 🔬 **Evidence-based done** | Verification commands + output land in `VERIFICATIONS/` |
 | 🧠 **Cross-session memory** | `MEMORY.md` distills lessons and conventions |
+| 🚄 **flow powerup** | One command to audit & tune Codex itself (AGENTS.md / config / skills / sub-agents / MCP) |
 
 ## 🚀 Quick start
 
@@ -59,6 +60,36 @@ flow run 10                             # 4️⃣ autonomous loop, one fresh ses
 
 > 💡 **You review exactly two documents** (PRD and PLAN); everything else runs itself.
 > `tail -f .flow/last-run.log` is your live dashboard.
+
+## 🚄 powerup: supercharge Codex itself
+
+Beyond project workflows — this tunes the Codex engine. The unified `flow-powerup` skill covers every 2026 official enhancement surface:
+
+| Surface | Coverage |
+|:---|:---|
+| 📄 AGENTS.md layering | Audit/generate the 4-level instruction chain + four governance principles |
+| 🤖 Sub-agents | Three TOML assets (read-only reviewer / workspace implementer / fast researcher) + authoring guide |
+| ⚙️ config.toml | Model-routing economics, `[agents]` guardrails (max_depth=1), skill toggles |
+| 🎯 Skills surface | description-as-ad-slot (2% context budget), curated installs, three activation paths |
+| 🔌 MCP / UI | Server wiring, `/agent` thread switching, Record & Replay |
+
+```bash
+flow powerup            # interactive full audit + tuning
+flow powerup install    # install the 3 sub-agents -> .codex/agents/
+```
+
+<details>
+<summary>🧪 <b>Distillation wave 2: more sources</b> (click to expand)</summary>
+
+| Source | Kept | Dropped |
+|:---|:---|:---|
+| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) (136+) | sandbox philosophy, model routing, TOML schema | all 136 agents (distilled to 3 universal roles) |
+| [Codex official docs 2026](https://developers.openai.com/codex/subagents) | skill scopes, 2% progressive-disclosure budget, `agents/openai.yaml` | — |
+| 200k★ CLAUDE.md governance | four behavioral laws (Think / Simplicity / Surgical / Goal-Driven) | rule-by-rule lists |
+| [cc-switch](https://github.com/farion1231/cc-switch) 132k★ | multi-harness config management ideas | desktop app (bash covers the core path) |
+| [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) 127k★ | curated skills-surface recommendation | bundling (not universal) |
+
+</details>
 
 ## 🧠 How it works
 

@@ -50,6 +50,20 @@
 - 探索性 spike：不需要计划审批，直接聊
 - 多仓库 / 多 agent 编排：去看 [agent-orchestrator](https://github.com/Untrivial-ai/agent-orchestrator) 或 [multi-agent-orchestration](https://github.com/formiat/multi-agent-orchestration)
 
+## 第二波蒸馏：Codex 本体增强（flow-powerup）
+
+> 来源：2026 官方文档（Skills 四作用域 / sub-agents TOML / AGENTS.md 分层链）+ 社区高星实践
+
+| 来源 | 规模 | 取 | 舍 | 舍弃理由 |
+|------|------|----|----|---------|
+| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents) | 136+ 代理 | 沙箱哲学（审查只读/执行受限写）、模型路由经济学、TOML 字段规范 | 全量 136 代理 | 精馏为 3 个普适角色（reviewer/implementer/researcher），覆盖 90% 场景 |
+| Codex 官方文档 2026 | — | Skills 四作用域（`.agents/skills`）、渐进披露 2% 预算、`agents/openai.yaml`、`[agents]` 护栏 | — | 直接采用 |
+| 20万★ CLAUDE.md 治理 | 200k★ | 四行为铁则（Think Before Coding / Simplicity First / Surgical Changes / Goal-Driven） | 逐条规则 | 原则可迁移，具体规则不可 |
+| [cc-switch](https://github.com/farion1231/cc-switch) | 132k★ | 多 harness 配置管理思路 | 桌面 App 形态 | bash 覆盖核心路径，无 GUI 依赖 |
+| [ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | 127k★ | 作为技能面推荐项 | 内置进引擎 | 非普适场景，按需选装 |
+
+**统一为一个技能的设计**：`flow-powerup` 单入口覆盖五大增强面（AGENTS.md / 子代理 / config / 技能面 / MCP+界面端），深度资料放 `references/`（渐进披露）、可安装资产放 `assets/`（三个 TOML）——符合官方技能解剖结构，description 即广告位。
+
 ## 致谢
 
 本项目是站在巨人肩膀上的蒸馏，向全部来源项目及其作者致敬。

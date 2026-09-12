@@ -41,6 +41,7 @@
 | 🧯 **停滞熔断** | 连续 3 轮无新提交自动停机，防止烧钱空转 |
 | 🔬 **证据即完成** | 验证命令 + 输出落盘 `VERIFICATIONS/`，无证据不勾选 |
 | 🧠 **跨会话记忆** | `MEMORY.md` 蒸馏教训与约定，对抗上下文腐烂 |
+| 🚄 **flow powerup** | 一条命令全面体检并调优 Codex 本体（AGENTS.md/config/技能/子代理/MCP） |
 
 ## 🚀 60 秒上手
 
@@ -90,6 +91,36 @@ $ flow run 10
 [ ok ] 全部任务完成（共 9 轮迭代）
 [flow] 触发复盘: flow review
 ```
+
+</details>
+
+## 🚄 powerup：给 Codex 本体增压
+
+不止管项目工作流，还增强 Codex 自身。统一技能 `flow-powerup` 一站式覆盖 2026 官方全部增强面：
+
+| 增强面 | 覆盖内容 |
+|:---|:---|
+| 📄 AGENTS.md 分层 | 审计/生成四层指令链（全局→仓库→子目录→override），治理四原则 |
+| 🤖 子代理 | 三件套 TOML（reviewer 只读审查 / implementer 写码执行 / researcher 快速侦察）+ 定制指南 |
+| ⚙️ config.toml | 模型路由经济学、`[agents]` 护栏（max_depth=1 防扇出）、技能开关 |
+| 🎯 技能面 | description 广告位优化（2% 上下文预算）、高星技能选装、三条激活入口 |
+| 🔌 MCP / 界面端 | 服务器接入、`/agent` 线程切换、Record & Replay 录制技能 |
+
+```bash
+flow powerup            # 交互式全面体检 + 按需调优
+flow powerup install    # 只装三件套子代理 -> .codex/agents/
+```
+
+<details>
+<summary>🧪 <b>第二波蒸馏：更多来源与取舍</b>（点击展开）</summary>
+
+| 来源 | 取 | 舍 |
+|:---|:---|:---|
+| [awesome-codex-subagents](https://github.com/VoltAgent/awesome-codex-subagents)（136+ 子代理） | 沙箱哲学（审查只读/执行受限写）、模型路由、TOML 字段规范 | 136 个全量代理（精馏为 3 个普适角色） |
+| [Codex 官方文档 2026](https://developers.openai.com/codex/subagents) | Skills 四作用域、渐进披露 2% 预算、`agents/openai.yaml` | — |
+| 20万★ CLAUDE.md 治理经验 | 四行为铁则（Think/Simplicity/Surgical/Goal-Driven） | 逐条规则（提炼为原则） |
+| [cc-switch](https://github.com/farion1231/cc-switch) 132k★ | 多 harness 配置管理思路 | 桌面 App（bash 即可覆盖核心路径） |
+| [ui-ux-pro-max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) 127k★ | 作为技能面推荐项 | 内置（非普适场景） |
 
 </details>
 

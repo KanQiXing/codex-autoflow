@@ -133,6 +133,32 @@ cmd_once() {
 cmd_verify() { require_flow; codex_run flow-verify ""; }
 cmd_review() { require_flow; codex_run flow-review ""; }
 
+# ---------- powerup: Codex 深度增强（统一技能入口） ----------
+cmd_powerup() {
+  local mode="${1:-audit}"
+  case "$mode" in
+    install)
+      # 只装资产：三件套子代理 TOML -> .codex/agents/
+      mkdir -p .codex/agents
+      local a installed=0
+      for a in reviewer implementer researcher; do
+        if [ -f ".codex/agents/$a.toml" ]; then
+          info "已存在 .codex/agents/$a.toml，跳过（如需覆盖请先删除）"
+        else
+          cp "$ROOT/skills/flow-powerup/assets/$a.toml" ".codex/agents/$a.toml"
+          installed=$((installed + 1))
+        fi
+      done
+      [ "$installed" -gt 0 ] && ok "已安装 $installed 个子代理 -> .codex/agents/（重启会话生效）"
+      info "审计与深度调优请运行: flow powerup"
+      ;;
+    audit|*)
+      # 全面试诊（交互式，由统一技能接管）
+      codex_run flow-powerup "$*" tui
+      ;;
+  esac
+}
+
 finish_review() {
   if [ "$AUTO_REVIEW" = "0" ]; then
     info "自动复盘已关闭 (FLOW_AUTO_REVIEW=0)"
@@ -230,6 +256,10 @@ codex-autoflow v$VERSION — 访谈 -> 规划 -> 审批 -> 持续执行 -> 验�
   status             进度概览
   once               单轮执行（调试提示词时用）
 
+Codex 增强:
+  powerup            全面体检+调优（AGENTS.md/config/技能/子代理/MCP）
+  powerup install    安装三件套子代理 -> .codex/agents/
+
 环境变量:
   FLOW_CODEX_ARGS    传给 codex 的额外参数，如 "--model gpt-5.2 --full-auto"
   FLOW_AUTO_REVIEW   0 = 完成后不自动复盘（默认 1）
@@ -248,6 +278,7 @@ case "${1:-help}" in
   once)      shift; cmd_once "$@" ;;
   verify)    shift; cmd_verify "$@" ;;
   review)    shift; cmd_review "$@" ;;
+  powerup)   shift; cmd_powerup "$@" ;;
   status)    shift; cmd_status "$@" ;;
   version|--version|-v) echo "codex-autoflow $VERSION" ;;
   *)         cmd_help ;;
