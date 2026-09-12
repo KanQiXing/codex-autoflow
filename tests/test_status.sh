@@ -22,7 +22,7 @@ mkdir -p .flow/VERIFICATIONS
 printf -- '- [x] T001 完成\n- [ ] T002 未完成\n' > .flow/PLAN.md
 printf '# log\n' > .flow/PROGRESS.md
 printf '# mem\n' > .flow/MEMORY.md
-printf 'approved\n' > .flow/APPROVED
+printf 'approved_by=human at=test\nplan_sha256=%s\n' "$(sha256sum .flow/PLAN.md | awk '{print $1}')" > .flow/APPROVED
 
 output="$("$FLOW_SRC" status 2>&1)"
 

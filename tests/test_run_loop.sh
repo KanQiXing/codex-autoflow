@@ -35,7 +35,9 @@ case "$MOCK_MODE" in
     # 模拟完成第一个未完成任务
     PLAN="$(pwd)/.flow/PLAN.md"
     if grep -q '^- \[ \]' "$PLAN" 2>/dev/null; then
+      TASK_ID="$(grep -m1 '^- \[ \]' "$PLAN" | awk '{print $4}' | sed 's/:$//')"
       sed -i '0,/^- \[ \]/{s/^- \[ \]/- [x]/}' "$PLAN"
+      printf '# verification\n\n- mock verification passed\n' > ".flow/VERIFICATIONS/${TASK_ID}.md"
       echo "completed one task" >> .flow/PROGRESS.md
       git add -A 2>/dev/null
       git commit -q -m "flow(mock): completed task" 2>/dev/null
@@ -59,19 +61,21 @@ MOCK
 chmod +x "$TESTDIR/bin/codex"
 
 export PATH="$TESTDIR/bin:$PATH"
+export FLOW_TASK_TIMEOUT=1
 
 echo "测试 1: 全部任务完成触发复盘"
 printf -- '- [ ] T001\n- [ ] T002\n' > .flow/PLAN.md 2>/dev/null
 mkdir -p .flow/VERIFICATIONS
 printf '# log\n' > .flow/PROGRESS.md 2>/dev/null
 printf '# mem\n' > .flow/MEMORY.md 2>/dev/null
-printf 'approved\n' > .flow/APPROVED
+printf 'approved_by=human at=test\nplan_sha256=%s\n' "$(sha256sum .flow/PLAN.md | awk '{print $1}')" > .flow/APPROVED
 MOCK_MODE=success FLOW_AUTO_REVIEW=0 "$FLOW_SRC" run 5 >/dev/null 2>&1
 assert "$(grep -c '^- \[x\]' .flow/PLAN.md)" "2" "两个任务都完成"
 
 echo
 echo "测试 2: 停滞熔断（连续 3 轮无提交）"
 printf -- '- [ ] T001\n- [ ] T002\n' > .flow/PLAN.md
+printf 'approved_by=human at=test\nplan_sha256=%s\n' "$(sha256sum .flow/PLAN.md | awk '{print $1}')" > .flow/APPROVED
 MOCK_MODE=stall FLOW_AUTO_REVIEW=0 "$FLOW_SRC" run 10 >/dev/null 2>&1
 rc=$?
 assert "$rc" "1" "停滞 3 轮后以非零退出"

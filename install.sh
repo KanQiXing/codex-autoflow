@@ -21,6 +21,14 @@ if [ -f "$SRC/checksums.txt" ]; then
       exit 1
     fi
     echo "[ ok ] 完整性校验通过"
+  elif command -v shasum >/dev/null 2>&1; then
+    if ! (cd "$SRC" && shasum -a 256 -c checksums.txt >/dev/null 2>&1); then
+      echo "[fail] 校验失败：文件可能被篡改，请重新 clone 仓库" >&2
+      exit 1
+    fi
+    echo "[ ok ] 完整性校验通过"
+  else
+    echo "[warn] 未找到 sha256sum 或 shasum，跳过完整性校验" >&2
   fi
 fi
 
@@ -37,7 +45,13 @@ install_skills() {
     [ -d "$s" ] || continue
     name="$(basename "$s")"
     [ -n "$name" ] || continue
-    rm -rf "${dir:?}/${name:?}"
+    if [ -e "$dir/$name" ] && [ "${FLOW_INSTALL_FORCE:-0}" != "1" ]; then
+      echo "[warn] 已存在技能 $dir/$name，跳过覆盖（确认后设置 FLOW_INSTALL_FORCE=1）" >&2
+      continue
+    fi
+    if [ -e "$dir/$name" ]; then
+      rm -rf "${dir:?}/${name:?}"
+    fi
     cp -R "$s" "$dir/$name"
   done
   echo "[ ok ] 技能已安装 -> $dir"
