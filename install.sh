@@ -13,6 +13,17 @@ SKILLS_DIR_LEGACY="$CODEX_HOME_DIR/skills"
 command -v codex >/dev/null 2>&1 \
   || echo "[warn] 未找到 codex 命令，可稍后安装: https://github.com/openai/codex"
 
+# 完整性校验：防止文件被篡改
+if [ -f "$SRC/checksums.txt" ]; then
+  if command -v sha256sum >/dev/null 2>&1; then
+    if ! (cd "$SRC" && sha256sum -c checksums.txt >/dev/null 2>&1); then
+      echo "[fail] 校验失败：文件可能被篡改，请重新 clone 仓库" >&2
+      exit 1
+    fi
+    echo "[ ok ] 完整性校验通过"
+  fi
+fi
+
 mkdir -p "$DEST" "$BIN_DIR"
 cp -R "$SRC/flow" "$SRC/skills" "$SRC/templates" "$SRC/docs" "$DEST/"
 chmod +x "$DEST/flow"

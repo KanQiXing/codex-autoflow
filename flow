@@ -14,6 +14,7 @@ VERSION="1.0.0"
 FLOW_DIR=".flow"
 EXTRA_ARGS="${FLOW_CODEX_ARGS:-}"
 AUTO_REVIEW="${FLOW_AUTO_REVIEW:-1}"
+TASK_TIMEOUT="${FLOW_TASK_TIMEOUT:-600}"
 
 # ---------- 定位引擎根目录（macOS bash3 兼容，不依赖 readlink -f） ----------
 resolve_root() {
@@ -28,6 +29,34 @@ resolve_root() {
 }
 resolve_root
 
+# ---------- 文件锁：防止并发 run 损坏共享状态 ----------
+acquire_lock() {
+  [ "${FLOW_FORCE:-0}" = "1" ] && return 0
+  local lockfile="$FLOW_DIR/.lock"
+  [ -d "$FLOW_DIR" ] || die "状态目录不存在: 先运行 flow init"
+  if command -v flock >/dev/null 2>&1; then
+    exec 9>"$lockfile" 2>/dev/null || return 0
+    flock -n 9 2>/dev/null || die "另一个 flow 进程正在运行。如确认无冲突，删除 $lockfile 或设置 FLOW_FORCE=1 后重试。"
+  else
+    if [ -f "$lockfile" ]; then
+      local pid
+      pid="$(cat "$lockfile" 2>/dev/null || echo 0)"
+      if kill -0 "$pid" 2>/dev/null; then
+        die "另一个 flow 进程 (PID $pid) 正在运行。如确认无冲突，删除 $lockfile 或设置 FLOW_FORCE=1 后重试。"
+      fi
+    fi
+    echo "$$" > "$lockfile" 2>/dev/null || true
+  fi
+}
+
+release_lock() {
+  local lockfile="$FLOW_DIR/.lock"
+  if command -v flock >/dev/null 2>&1; then
+    flock -u 9 2>/dev/null || true
+  fi
+  rm -f "$lockfile" 2>/dev/null || true
+}
+
 # ---------- 输出 ----------
 info() { printf '\033[1;36m[flow]\033[0m %s\n' "$*"; }
 ok()   { printf '\033[1;32m[ ok ]\033[0m %s\n' "$*"; }
@@ -37,9 +66,14 @@ die()  { printf '\033[1;31m[fail]\033[0m %s\n' "$*" >&2; exit 1; }
 now() { date '+%Y-%m-%d %H:%M'; }
 
 # ---------- 技能加载: SKILL.md 的 frontmatter 之后的正文即提示词 ----------
+# 状态机解析：跟踪代码块（```），代码块内的 --- 不算 frontmatter 结束
 skill_body() {
-  awk 'NR==1 && $0=="---" {fm=1; next} fm && $0=="---" {fm=0; next} !fm' \
-    "$ROOT/skills/$1/SKILL.md"
+  awk '
+    /^---$/ && fm==0 && code==0 { fm=1; next }
+    /^---$/ && fm==1 && code==0 { fm=0; next }
+    /^```/ { code = (code+1) % 2 }
+    fm==0 { print }
+  ' "$ROOT/skills/$1/SKILL.md"
 }
 
 require_flow() {
@@ -54,10 +88,16 @@ require_git() {
     || die "不在 git 仓库内: 先 git init"
 }
 
-# 任务统计（grep -c 无匹配时输出 0 并返回非零，用 || true 兜底）
-count_open() { grep -cE '^[[:space:]]*- \[ \]' "$FLOW_DIR/PLAN.md" || true; }
-count_done() { grep -cE '^[[:space:]]*- \[x\]' "$FLOW_DIR/PLAN.md" || true; }
-count_all()  { grep -cE '^[[:space:]]*- \[[ x]\]' "$FLOW_DIR/PLAN.md" || true; }
+# 任务统计（先检查文件存在性；grep -c 无匹配时输出 0 但返回非零，用变量捕获避免重复输出）
+_count() {
+  local pattern="$1" c
+  [ -f "$FLOW_DIR/PLAN.md" ] || { echo 0; return; }
+  c="$(grep -cE "$pattern" "$FLOW_DIR/PLAN.md" 2>/dev/null || true)"
+  echo "${c:-0}"
+}
+count_open() { _count '^[[:space:]]*- \[ \]'; }
+count_done() { _count '^[[:space:]]*- \[x\]'; }
+count_all()  { _count '^[[:space:]]*- \[[ x]\]'; }
 
 # 统一调用: $1=技能名 $2=附加输入(可空) $3=tui 时用交互式 codex（访谈需要对话）
 codex_run() {
@@ -74,11 +114,15 @@ codex_run() {
 $extra"
   fi
   if [ "${3:-}" = "tui" ]; then
+    # 交互式对话模式（无超时，用户在场）
     # shellcheck disable=SC2086
-    exec codex $EXTRA_ARGS "$prompt"
+    codex $EXTRA_ARGS "$prompt"
+    return $?
   fi
+  # 非交互执行模式：加超时保护
   # shellcheck disable=SC2086
-  exec codex exec --skip-git-repo-check $EXTRA_ARGS "$prompt"
+  codex exec --skip-git-repo-check $EXTRA_ARGS "$prompt"
+  return $?
 }
 
 # ---------- 命令: init ----------
@@ -89,6 +133,15 @@ cmd_init() {
   [ -f "$FLOW_DIR/PLAN.md" ]     || cp "$ROOT/templates/PLAN.md" "$FLOW_DIR/PLAN.md"
   [ -f "$FLOW_DIR/PROGRESS.md" ] || printf '# 执行日志（追加式，不要删改历史）\n' > "$FLOW_DIR/PROGRESS.md"
   [ -f "$FLOW_DIR/MEMORY.md" ]   || printf '# 跨会话记忆（教训与约定，保持精简）\n' > "$FLOW_DIR/MEMORY.md"
+
+  # 安全 .gitignore：防止误提交敏感文件与运行日志
+  local gi_marker="# codex-autoflow safe ignore"
+  if [ -f .gitignore ] && grep -q "$gi_marker" .gitignore 2>/dev/null; then
+    info ".gitignore 已包含安全规则，跳过"
+  else
+    printf '\n%s\n.flow/last-run.log\n.flow/.lock\n*.env\n*.key\n*.pem\n.secrets\n' "$gi_marker" >> .gitignore
+    info "已追加安全 .gitignore 规则"
+  fi
 
   local marker="autoflow-codex 状态契约"
   if [ -f AGENTS.md ] && grep -q "$marker" AGENTS.md 2>/dev/null; then
@@ -127,11 +180,40 @@ cmd_once() {
   require_flow
   [ -f "$FLOW_DIR/APPROVED" ] || die "计划未审批: 先运行 flow approve"
   require_codex
+  acquire_lock
+  trap release_lock EXIT INT TERM
   codex_run flow-execute ""
 }
 
 cmd_verify() { require_flow; codex_run flow-verify ""; }
 cmd_review() { require_flow; codex_run flow-review ""; }
+
+# ---------- rollback: 回滚指定任务（git revert + 重置 checkbox） ----------
+cmd_rollback() {
+  require_flow; require_git
+  local task_id="${1:-}"
+  [ -n "$task_id" ] || die "用法: flow rollback T001"
+  case "$task_id" in T[0-9]*) ;; *) die "任务 ID 格式应为 T 加数字，如 T001";; esac
+
+  local commit
+  commit="$(git log --oneline --grep="flow($task_id)" 2>/dev/null | head -1 | awk '{print $1}')"
+  [ -n "$commit" ] || die "未找到任务 $task_id 的提交"
+
+  acquire_lock
+  trap release_lock EXIT INT TERM
+
+  info "回滚 $task_id (提交 $commit)..."
+  git revert --no-edit "$commit" 2>/dev/null || die "git revert 失败，请手动处理冲突后运行: flow run"
+
+  # 将 PLAN.md 中该任务的 [x] 改回 [ ]
+  if [ -f "$FLOW_DIR/PLAN.md" ]; then
+    sed -i "s/- \[x\] $task_id/- [ ] $task_id/" "$FLOW_DIR/PLAN.md" 2>/dev/null \
+      || sed -i "" "s/- \[x\] $task_id/- [ ] $task_id/" "$FLOW_DIR/PLAN.md" 2>/dev/null || true
+  fi
+
+  printf '%s | ROLLBACK | %s | reverted %s\n' "$(now)" "$task_id" "$commit" >> "$FLOW_DIR/PROGRESS.md"
+  ok "已回滚 $task_id，可重新执行: flow run"
+}
 
 # ---------- powerup: Codex 深度增强（统一技能入口） ----------
 cmd_powerup() {
@@ -187,7 +269,9 @@ run_loop() {
   require_flow; require_git
   [ -f "$FLOW_DIR/APPROVED" ] || die "计划未审批: 先运行 flow approve"
   require_codex
-  local max="$1" iter=0 stall=0 before after remaining
+  acquire_lock
+  trap release_lock EXIT INT TERM
+  local max="$1" iter=0 stall=0 before after remaining exit_code
 
   remaining="$(count_open)"
   if [ "$remaining" -eq 0 ]; then
@@ -212,11 +296,17 @@ run_loop() {
     info "迭代 $iter/$max · 剩余任务 $remaining"
 
     before="$(git rev-parse HEAD 2>/dev/null || echo none)"
+    # 单任务超时保护：防止 codex 卡死导致停滞熔断失效
     # shellcheck disable=SC2086
-    codex exec --skip-git-repo-check $EXTRA_ARGS "$(skill_body flow-execute)" \
-      > "$FLOW_DIR/last-run.log" 2>&1 \
-      || warn "本轮 codex 退出码非零，详见 .flow/last-run.log"
-    tail -n 12 "$FLOW_DIR/last-run.log" | sed 's/^/    /'
+    timeout "$TASK_TIMEOUT" codex exec --skip-git-repo-check $EXTRA_ARGS "$(skill_body flow-execute)" \
+      > "$FLOW_DIR/last-run.log" 2>&1
+    exit_code=$?
+    if [ "$exit_code" -eq 124 ]; then
+      warn "任务超时（${TASK_TIMEOUT}s），强制终止本轮"
+    elif [ "$exit_code" -ne 0 ]; then
+      warn "本轮 codex 退出码 $exit_code，详见 .flow/last-run.log"
+    fi
+    tail -n 12 "$FLOW_DIR/last-run.log" 2>/dev/null | sed 's/^/    /'
 
     after="$(git rev-parse HEAD 2>/dev/null || echo none)"
     if [ "$before" = "$after" ]; then
@@ -267,6 +357,7 @@ codex-autoflow v$VERSION — 访谈 -> 规划 -> 审批 -> 持续执行 -> 验�
   run [N]            4.自治循环（默认10轮，停滞3轮熔断）-> 代码+证据+提交
   verify             重验全部已完成任务，刷新证据
   review             复盘蒸馏                          -> .flow/LESSONS.md
+  rollback TXXX      回滚指定任务（git revert + 重置 checkbox）
   status             进度概览
   once               单轮执行（调试提示词时用）
 
@@ -278,9 +369,12 @@ Codex 增强:
   hub                技能发现/安装/策展/安全审计（交互式）
 
 环境变量:
-  FLOW_CODEX_ARGS    传给 codex 的额外参数，如 "--model gpt-5.2 --full-auto"
+  FLOW_CODEX_ARGS    传给 codex 的额外参数，如 "--model gpt-5.2"
   FLOW_AUTO_REVIEW   0 = 完成后不自动复盘（默认 1）
+  FLOW_TASK_TIMEOUT  单任务超时秒数（默认 600）
+  FLOW_FORCE         1 = 跳过文件锁（用于故障恢复）
 
+⚠️  安全: 不建议配合 --full-auto 使用 flow run，任务间将无人工审查。
 铁律: 一切落盘 · 先审后动 · 单任务循环 · 证据即完成 · 上下文重注入
 EOF
 }
@@ -295,6 +389,7 @@ case "${1:-help}" in
   once)      shift; cmd_once "$@" ;;
   verify)    shift; cmd_verify "$@" ;;
   review)    shift; cmd_review "$@" ;;
+  rollback)  shift; cmd_rollback "$@" ;;
   powerup)   shift; cmd_powerup "$@" ;;
   hub)       shift; cmd_hub "$@" ;;
   status)    shift; cmd_status "$@" ;;

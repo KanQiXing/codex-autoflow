@@ -43,7 +43,19 @@ description: 自主执行引擎。单轮完成一个任务：重建上下文→�
    - MEMORY.md：只在本轮确实学到新教训或约定时追加（宁缺毋滥，禁止编造）
 
 7. **提交里程碑**
-   git add -A && git commit -m "flow(T{ID}): 一句话摘要"
+   ⚠️ **安全规则：禁止 `git add -A`**，这会把 .env、密钥文件、运行日志全部提交。
+   仅暂存**本轮任务涉及的文件**：
+   ```bash
+   git add <本轮修改的具体文件路径列表>
+   git commit -m "flow(T{ID}): 一句话摘要"
+   ```
+   **禁止提交的文件**（已在 .gitignore 中）：
+   - `.env` / `.env.*` 等环境变量文件
+   - `*.key` / `*.pem` / `*.secret` 等密钥文件
+   - `.flow/last-run.log`（可能含敏感输出）
+   - `node_modules/` / `__pycache__/` / `.venv/` 等依赖目录
+   - 任何包含密码、token、API key 的文件
+
    每轮一个干净提交，这是断点恢复与回滚的锚点。
 
 8. **报告并判定**

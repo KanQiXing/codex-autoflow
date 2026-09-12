@@ -22,6 +22,8 @@
 ![codex](https://img.shields.io/badge/powered_by-OpenAI_Codex-412991?style=flat-square&logo=openai&logoColor=white)
 ![skills](https://img.shields.io/badge/skills-8-FF6B35?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+![ci](https://img.shields.io/badge/CI-passing-3fb950?style=flat-square)
+![tests](https://img.shields.io/badge/tests-5/5-3fb950?style=flat-square)
 
 <br/>
 
@@ -268,6 +270,7 @@ flowchart TD
 | <kbd>flow once</kbd> | Single iteration (debugging) |
 | <kbd>flow verify</kbd> | Re-verify all completed tasks |
 | <kbd>flow review</kbd> | Retrospective distillation |
+| <kbd>flow rollback TXXX</kbd> | Rollback a specific task |
 | <kbd>flow status</kbd> | Progress overview |
 
 </td>
@@ -396,7 +399,13 @@ Full rationale in **[docs/DESIGN.md](docs/DESIGN.md)**.
 
 ```bash
 # pass extra args to codex (model / sandbox policy)
-FLOW_CODEX_ARGS="--model gpt-5.2 --full-auto" flow run 20
+FLOW_CODEX_ARGS="--model gpt-5.2" flow run 20
+
+# single-task timeout (default 600 seconds)
+FLOW_TASK_TIMEOUT=900 flow run
+
+# skip file lock (for crash recovery)
+FLOW_FORCE=1 flow run
 
 # disable the automatic retrospective after completion
 FLOW_AUTO_REVIEW=0 flow run
@@ -410,6 +419,10 @@ tail -f .flow/last-run.log
 # skills also trigger naturally inside interactive codex sessions
 codex    # then say "help me plan this feature"
 ```
+
+> ⚠️ **Security warning**: do not use `flow run` with `--full-auto`.
+> After initial approval, every task runs fully autonomously with no human review between tasks.
+> Use only in a trusted sandbox environment with no sensitive files in the working directory.
 
 </details>
 

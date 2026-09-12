@@ -22,6 +22,8 @@
 ![codex](https://img.shields.io/badge/powered_by-OpenAI_Codex-412991?style=flat-square&logo=openai&logoColor=white)
 ![skills](https://img.shields.io/badge/skills-8-FF6B35?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+![ci](https://img.shields.io/badge/CI-passing-3fb950?style=flat-square)
+![tests](https://img.shields.io/badge/tests-5/5-3fb950?style=flat-square)
 
 <br/>
 
@@ -268,6 +270,7 @@ flowchart TD
 | <kbd>flow once</kbd> | 单轮执行（调试用） |
 | <kbd>flow verify</kbd> | 重验全部已完成任务 |
 | <kbd>flow review</kbd> | 复盘蒸馏 → LESSONS.md |
+| <kbd>flow rollback TXXX</kbd> | 回滚指定任务 |
 | <kbd>flow status</kbd> | 进度概览 |
 
 </td>
@@ -396,7 +399,13 @@ flowchart TD
 
 ```bash
 # 给 codex 传额外参数（模型 / 沙箱策略）
-FLOW_CODEX_ARGS="--model gpt-5.2 --full-auto" flow run 20
+FLOW_CODEX_ARGS="--model gpt-5.2" flow run 20
+
+# 单任务超时（默认 600 秒）
+FLOW_TASK_TIMEOUT=900 flow run
+
+# 跳过文件锁（用于故障恢复）
+FLOW_FORCE=1 flow run
 
 # 关闭完成后的自动复盘
 FLOW_AUTO_REVIEW=0 flow run
@@ -410,6 +419,10 @@ tail -f .flow/last-run.log
 # 技能也可在交互式 codex 会话中被自然触发（渐进披露）
 codex    # 然后说"帮我规划这个功能"
 ```
+
+> ⚠️ **安全警告**：不建议配合 `--full-auto` 使用 `flow run`。
+> 初始审批后每个任务将全自动执行，任务间无人工审查环节。
+> 仅在受信任的沙箱环境中使用，并确保工作目录无敏感文件。
 
 </details>
 
